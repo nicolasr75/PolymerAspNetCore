@@ -34,6 +34,7 @@ namespace PolymerAspNetCore
                 app.UseDeveloperExceptionPage();
             }
 
+            //We need to add these to the WebApi template to serve the Polymer files
             app.UseDefaultFiles();
             app.UseStaticFiles();
 

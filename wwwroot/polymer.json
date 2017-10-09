@@ -16,7 +16,7 @@
     "bower_components/webcomponentsjs/*.js"
   ],
   "lint": {
-    "rules": ["polymer-2"]
+    "rules": [ "polymer-2" ]
   },
   "builds": [
     {

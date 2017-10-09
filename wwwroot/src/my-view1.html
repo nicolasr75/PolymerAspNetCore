@@ -9,6 +9,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="my-view1">
@@ -24,14 +27,67 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div class="card">
       <div class="circle">1</div>
       <h1>View One</h1>
-      <p>Ut labores minimum atomorum pro. Laudem tibique ut has.</p>
-      <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
+      
+      <paper-listbox style="border: 1px solid red">
+          <template is="dom-repeat" items="{{values}}">
+              <paper-item>{{item}}</paper-item>
+          </template>
+      </paper-listbox>
+
     </div>
+
+    <iron-ajax
+        id="ajax"
+        url="api/values"
+        method="get"
+        handle-as="json"
+        reject-with-request="True">
+    </iron-ajax>
+
   </template>
 
   <script>
     class MyView1 extends Polymer.Element {
-      static get is() { return 'my-view1'; }
+        static get is() { return 'my-view1'; }
+
+        static get properties() {
+            return {
+
+                values: {
+                    type: Array
+                }
+
+            }
+        }
+
+        ready() {
+
+            super.ready();
+
+            this.getValues();
+        }
+
+        getValues() {
+
+            let ajax = this.$.ajax;
+
+            let self = this;
+
+            ajax.generateRequest().completes.then(function (request) {
+
+                self.values = request.xhr.response;
+
+            }, function (ex) {
+
+                if (ex.error) {
+                    alert(ex.error);
+                }
+                else {
+                    alert("An unknown error occurred");
+                }
+
+            });
+        }
     }
 
     window.customElements.define(MyView1.is, MyView1);

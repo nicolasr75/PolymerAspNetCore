@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <Content Update="wwwroot\**\*" CopyToPublishDirectory="Never" />
-    <ClientFiles Include="wwwroot\build\default\**\*" />
+    <ClientFiles Include="wwwroot\build\es6-unbundled\**\*" />
   </ItemGroup>
 
   <ItemGroup>
